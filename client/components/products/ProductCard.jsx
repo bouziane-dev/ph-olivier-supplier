@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Minus, Plus, Pill } from "lucide-react";
+import { Minus, Plus, ShoppingCart, Pill } from "lucide-react";
 import { formatDA } from "@/lib/format";
 import { STOCK_CLASS } from "@/lib/data";
 
@@ -39,8 +39,8 @@ export default function ProductCard({ product, onAdd, index = 0, loading }) {
       <h3 className="product-name">{product.name}</h3>
       <p className="product-sub">{product.detail}</p>
       <div className="product-footer">
-        <span className="price">{formatDA(product.price)}</span>
-        <div className="product-add-row">
+        <div className="product-footer-top">
+          <span className="price">{formatDA(product.price)}</span>
           <div className="qty-control">
             <button
               onClick={() => setQty((q) => Math.max(1, q - 1))}
@@ -58,18 +58,18 @@ export default function ProductCard({ product, onAdd, index = 0, loading }) {
               <Plus size={13} />
             </button>
           </div>
-          <button
-            className="add-button"
-            onClick={() => { onAdd(product, qty); setQty(1); }}
-            disabled={out}
-            data-testid={`button-add-${product.id}`}
-            aria-label={`Ajouter ${product.name}`}
-            title={out ? "Épuisé" : "Ajouter au panier"}
-          >
-            <Plus size={16} />
-            Ajouter
-          </button>
         </div>
+        <button
+          className="add-to-cart-btn"
+          onClick={() => { onAdd(product, qty); setQty(1); }}
+          disabled={out}
+          data-testid={`button-add-${product.id}`}
+          aria-label={`Ajouter ${product.name}`}
+          title={out ? "Épuisé" : "Ajouter au panier"}
+        >
+          <ShoppingCart size={15} />
+          Ajouter au panier
+        </button>
       </div>
     </article>
   );

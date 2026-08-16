@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { formatDA } from "@/lib/format";
 import { STOCK_CLASS } from "@/lib/data";
 
@@ -12,7 +12,6 @@ export default function ProductTable({ products, onAdd }) {
             <th>Produit</th>
             <th>Prix</th>
             <th>Disponibilité</th>
-            <th style={{ textAlign: "right" }}>Quantité</th>
             <th style={{ textAlign: "right" }}>Action</th>
           </tr>
         </thead>
@@ -46,7 +45,7 @@ function ProductRow({ product, onAdd }) {
           {product.stock}
         </span>
       </td>
-      <td data-label="Quantité" style={{ textAlign: "right" }}>
+      <td data-label="Action" style={{ textAlign: "right" }}>
         <div className="product-add-row" style={{ justifyContent: "flex-end" }}>
           <div className="qty-control">
             <button onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={out}>
@@ -58,16 +57,15 @@ function ProductRow({ product, onAdd }) {
             </button>
           </div>
           <button
-            className="add-button"
+            className="add-to-cart-btn-inline"
             onClick={() => { onAdd(product, qty); setQty(1); }}
             disabled={out}
           >
-            <Plus size={14} />
+            <ShoppingCart size={13} />
             Ajouter
           </button>
         </div>
       </td>
-      <td data-label="Action" style={{ textAlign: "right" }} />
     </tr>
   );
 }
