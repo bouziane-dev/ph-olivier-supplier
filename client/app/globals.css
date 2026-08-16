@@ -1708,6 +1708,83 @@ p {
   margin-top: 7px;
 }
 
+.notif-mark-read {
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  place-items: center;
+  display: grid;
+  flex: none;
+  color: hsl(var(--muted-foreground));
+  transition: background 0.15s, color 0.15s;
+  align-self: center;
+}
+
+.notif-mark-read:hover {
+  background: hsl(var(--primary));
+  color: #fff;
+  border-color: hsl(var(--primary));
+}
+
+.notification-item.unread {
+  background: #f3fbfb;
+}
+
+.notification-item.unread:hover {
+  background: #ecf9f8;
+}
+
+.user-menu-anchor {
+  position: relative;
+}
+
+.user-menu-panel {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  z-index: 20;
+  border-radius: 12px;
+  width: 170px;
+  padding: 6px;
+  animation: 0.18s both rise-in;
+  position: absolute;
+  top: 44px;
+  right: 0;
+  box-shadow: 0 14px 30px #29475622;
+}
+
+.user-menu-panel button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  color: hsl(var(--foreground));
+  cursor: pointer;
+}
+
+.user-menu-panel button:hover {
+  background: hsl(var(--muted));
+}
+
+.user-menu-panel button.danger {
+  color: hsl(var(--destructive));
+}
+
+.user-menu-panel .menu-sep {
+  height: 1px;
+  background: hsl(var(--border));
+  margin: 4px 8px;
+}
+
 /* ============================================================
    Checkout
    ============================================================ */

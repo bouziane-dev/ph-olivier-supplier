@@ -1,6 +1,6 @@
 "use client";
 
-import { Package, Truck, Timer, UserRound, Boxes, PackageCheck } from "lucide-react";
+import { Package, Truck, Timer, UserRound, Boxes, PackageCheck, Check } from "lucide-react";
 import { useStore } from "@/components/store";
 
 const TYPE_ICON = {
@@ -17,13 +17,7 @@ export function NotificationItem({ item, onClick }) {
   const Icon = TYPE_ICON[item.type] || Package;
 
   return (
-    <div
-      className="notification-item"
-      onClick={() => {
-        markNotificationRead(item.id);
-        onClick?.();
-      }}
-    >
+    <div className={`notification-item ${item.read ? "" : "unread"}`}>
       <div className="empty-icon" style={{ width: 28, height: 28, borderRadius: 9, margin: 0, flex: "none" }}>
         <Icon size={14} />
       </div>
@@ -31,6 +25,19 @@ export function NotificationItem({ item, onClick }) {
         <b>{item.title}</b>. {item.message}
         <span>{item.time}</span>
       </p>
+      {!item.read ? (
+        <button
+          className="notif-mark-read"
+          onClick={(e) => {
+            e.stopPropagation();
+            markNotificationRead(item.id);
+          }}
+          aria-label="Marquer comme lu"
+          title="Marquer comme lu"
+        >
+          <Check size={12} />
+        </button>
+      ) : null}
     </div>
   );
 }

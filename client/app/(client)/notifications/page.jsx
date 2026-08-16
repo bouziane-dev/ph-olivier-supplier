@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, CheckCheck, Package, Timer, Truck, UserRound, Boxes } from "lucide-react";
+import { Bell, CheckCheck, Package, Timer, Truck, UserRound, Boxes, Check } from "lucide-react";
 import { useStore } from "@/components/store";
 import PageHeader from "@/components/ui/PageHeader";
 import EmptyState from "@/components/ui/EmptyState";
@@ -15,28 +15,22 @@ const TYPE_ICON = {
 };
 
 const FILTERS = [
-  { key: "all", label: "Toutes les notifications" },
+  { key: "all", label: "Toutes" },
   { key: "unread", label: "Non lues" },
-  { key: "orders", label: "Commandes" },
-  { key: "stocks", label: "Stocks & arrivages" },
 ];
 
 export default function NotificationsPage() {
-  const { notifications, unreadCount, markAllRead } = useStore();
+  const { notifications, unreadCount, markAllRead, markNotificationRead } = useStore();
   const [filter, setFilter] = useState("all");
 
   const list = notifications.filter((n) => {
     if (filter === "unread") return !n.read;
-    if (filter === "orders") return ["order", "truck"].includes(n.type);
-    if (filter === "stocks") return ["stock", "catalog"].includes(n.type);
     return true;
   });
 
   const counts = {
     all: notifications.length,
     unread: unreadCount,
-    orders: notifications.filter((n) => ["order", "truck"].includes(n.type)).length,
-    stocks: notifications.filter((n) => ["stock", "catalog"].includes(n.type)).length,
   };
 
   return (
@@ -100,7 +94,16 @@ export default function NotificationsPage() {
                     <p>{n.message}</p>
                     <time>{n.time}</time>
                   </div>
-                  {!n.read ? <i className="unread-dot" /> : null}
+                  {!n.read ? (
+                    <button
+                      className="notif-mark-read"
+                      onClick={() => markNotificationRead(n.id)}
+                      aria-label="Marquer comme lu"
+                      title="Marquer comme lu"
+                    >
+                      <Check size={14} />
+                    </button>
+                  ) : null}
                 </div>
               ))}
             </div>
