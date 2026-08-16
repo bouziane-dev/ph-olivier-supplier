@@ -66,15 +66,15 @@ export function StoreProvider({ children }) {
   }, []);
 
   const addToCart = useCallback(
-    (product) => {
+    (product, qty = 1) => {
       setCart((prev) =>
         prev.some((item) => item.id === product.id)
           ? prev.map((item) =>
               item.id === product.id
-                ? { ...item, quantity: item.quantity + 1 }
+                ? { ...item, quantity: item.quantity + qty }
                 : item
             )
-          : [...prev, { ...product, quantity: 1 }]
+          : [...prev, { ...product, quantity: qty }]
       );
       showToast(`${product.name} ajouté au panier`);
     },
@@ -109,7 +109,7 @@ export function StoreProvider({ children }) {
       const order = {
         id,
         date: nowLabel(),
-        status: "En préparation",
+        status: "En attente",
         total: cartTotal,
         eta: "Livraison estimée sous 24 h",
         lines: cart,
@@ -121,9 +121,9 @@ export function StoreProvider({ children }) {
         {
           id: `n-${Date.now()}`,
           type: "order",
-          title: `Commande ${id} confirmée`,
+          title: `Commande ${id} reçue`,
           message:
-            "Notre équipe prépare votre commande. Livraison estimée sous 24 h.",
+            "Votre commande a bien été enregistrée et est en attente de confirmation.",
           time: "À l'instant",
           read: false,
         },

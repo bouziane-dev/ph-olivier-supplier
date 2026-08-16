@@ -10,12 +10,9 @@ import { INITIAL_ORDERS } from "@/lib/data";
 
 const STATUSES = [
   "Tous les statuts",
-  "Nouvelle",
+  "En attente",
   "Confirmée",
-  "En préparation",
-  "Expédiée",
   "Livrée",
-  "Fusionnée",
   "Annulée",
 ];
 

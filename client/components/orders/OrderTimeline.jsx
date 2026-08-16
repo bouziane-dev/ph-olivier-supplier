@@ -6,11 +6,8 @@ const STEPS = [
 ];
 
 const STEP_INDEX = {
-  Nouvelle: 0,
-  "En préparation": 1,
+  "En attente": 0,
   Confirmée: 1,
-  Fusionnée: 0,
-  Expédiée: 2,
   Livrée: 3,
   Annulée: 0,
 };
@@ -24,7 +21,7 @@ export default function OrderTimeline({ status, eta, startDate }) {
         const isDone = index < current;
         const isCurrent = index === current;
         const label =
-          isCurrent && status === "En préparation" && eta ? eta : step[1];
+          isCurrent && status === "En attente" && eta ? eta : step[1];
         return (
           <div
             key={step[0]}

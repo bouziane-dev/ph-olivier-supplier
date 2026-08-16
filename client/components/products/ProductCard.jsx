@@ -1,8 +1,10 @@
-import { Plus, Pill } from "lucide-react";
+import { useState } from "react";
+import { Minus, Plus, Pill } from "lucide-react";
 import { formatDA } from "@/lib/format";
 import { STOCK_CLASS } from "@/lib/data";
 
 export default function ProductCard({ product, onAdd, index = 0, loading }) {
+  const [qty, setQty] = useState(1);
   const out = product.stock === "Rupture";
 
   if (loading) {
@@ -38,9 +40,26 @@ export default function ProductCard({ product, onAdd, index = 0, loading }) {
       <p className="product-sub">{product.detail}</p>
       <div className="product-footer">
         <span className="price">{formatDA(product.price)}</span>
+        <div className="qty-control" style={{ marginBottom: 0 }}>
+          <button
+            onClick={() => setQty((q) => Math.max(1, q - 1))}
+            disabled={out}
+            aria-label="Diminuer la quantité"
+          >
+            <Minus size={13} />
+          </button>
+          <span>{qty}</span>
+          <button
+            onClick={() => setQty((q) => q + 1)}
+            disabled={out}
+            aria-label="Augmenter la quantité"
+          >
+            <Plus size={13} />
+          </button>
+        </div>
         <button
           className="add-button"
-          onClick={() => onAdd(product)}
+          onClick={() => { onAdd(product, qty); setQty(1); }}
           disabled={out}
           data-testid={`button-add-${product.id}`}
           aria-label={`Ajouter ${product.name}`}

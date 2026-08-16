@@ -11,27 +11,30 @@ const P = (id, name, detail, category, price, stock, art) => ({
 export const PRODUCTS = [
   P("p1", "Doliprane 1000 mg", "Boîte de 8 comprimés", "Médicaments", 185, "Disponible", "art-blue"),
   P("p2", "A-Derma Exomega", "Crème émolliente 200 ml", "Dermocosmétique", 1680, "Disponible", "art-mint"),
-  P("p3", "Biafine Émulsion", "Tube de 93 g", "Soins", 920, "Stock limité", "art-coral"),
+  P("p3", "Biafine Émulsion", "Tube de 93 g", "Parapharmacie", 920, "Stock limité", "art-coral"),
   P("p4", "Aciclovir 200 mg", "Boîte de 25 comprimés", "Médicaments", 1200, "Disponible", "art-lilac"),
   P("p5", "Cicalfate+ Avène", "Crème réparatrice 40 ml", "Dermocosmétique", 1540, "Disponible", "art-mint"),
-  P("p6", "Physiomer Hygiène", "Spray nasal 135 ml", "Hygiène", 1100, "Disponible", "art-blue"),
-  P("p7", "Magné B6", "Boîte de 60 comprimés", "Bien-être", 980, "Stock limité", "art-coral"),
+  P("p6", "Physiomer Hygiène", "Spray nasal 135 ml", "Parapharmacie", 1100, "Disponible", "art-blue"),
+  P("p7", "Magné B6", "Boîte de 60 comprimés", "Parapharmacie", 980, "Stock limité", "art-coral"),
   P("p8", "Mustela Hydra Bébé", "Lait corps 300 ml", "Bébé", 1890, "Disponible", "art-lilac"),
   P("p9", "Efferalgan Vitamine C", "Boîte de 16 comprimés", "Médicaments", 740, "Disponible", "art-blue"),
   P("p10", "La Roche-Posay Anthelios", "Fluide SPF50+ 50 ml", "Dermocosmétique", 2600, "En arrivée", "art-mint"),
-  P("p11", "Bétadine dermique", "Flacon 125 ml", "Soins", 890, "Disponible", "art-coral"),
-  P("p12", "Vichy Dercos Shampooing", "Anti-chute 200 ml", "Hygiène", 2140, "Disponible", "art-lilac"),
+  P("p11", "Bétadine dermique", "Flacon 125 ml", "Parapharmacie", 890, "Disponible", "art-coral"),
+  P("p12", "Vichy Dercos Shampooing", "Anti-chute 200 ml", "Parapharmacie", 2140, "Disponible", "art-lilac"),
   P("p13", "Abufene 400 mg", "Boîte de 20 comprimés", "Médicaments", 320, "Disponible", "art-blue"),
   P("p14", "Aciclovir sirop 200 mg/5 ml", "Flacon de 120 ml", "Médicaments", 780, "Stock limité", "art-mint"),
   P("p15", "Aciclovir 250 mg inj", "Boîte de 5 ampoules", "Médicaments", 1450, "Disponible", "art-lilac"),
   P("p16", "Aciclovir 500 mg inj", "Boîte de 5 ampoules", "Médicaments", 2100, "Disponible", "art-blue"),
-  P("p17", "Aldara 5% crm", "Boîte de 12 sachets", "Soins", 4600, "En arrivée", "art-coral"),
+  P("p17", "Aldara 5% crm", "Boîte de 12 sachets", "Parapharmacie", 4600, "En arrivée", "art-coral"),
   P("p18", "Inexium 40 mg", "Boîte de 28 comprimés", "Médicaments", 3350, "Disponible", "art-lilac"),
 ];
 
 export const CATEGORIES = [
   "Toutes les catégories",
-  ...new Set(PRODUCTS.map((p) => p.category)),
+  "Médicaments",
+  "Dermocosmétique",
+  "Bébé",
+  "Parapharmacie",
 ];
 
 export const AVAILABILITY = [
@@ -65,20 +68,20 @@ export const INITIAL_ORDERS = [
   order(
     "#ADL-5201",
     "11/08/2026 à 09:15",
-    "Nouvelle",
+    "En attente",
     [line("p1", 3), line("p9", 2), line("p14", 1)]
   ),
   order(
     "#ADL-3955",
     "11/08/2026 à 16:39",
-    "En préparation",
+    "En attente",
     [line("p2", 3), line("p3", 2), line("p1", 2)],
     { eta: "Livraison estimée demain" }
   ),
   order("#ADL-3100", "05/08/2026 à 11:20", "Confirmée", [line("p13", 5), line("p18", 2)]),
-  order("#ADL-2061", "09/07/2026 à 21:15", "Expédiée", [line("p9", 2), line("p5", 5)]),
-  order("#ADL-1280", "28/06/2026 à 08:45", "Fusionnée", [line("p12", 4), line("p6", 3)], {
-    note: "Fusionnée avec la commande #ADL-560.",
+  order("#ADL-2061", "09/07/2026 à 21:15", "Livrée", [line("p9", 2), line("p5", 5)]),
+  order("#ADL-1280", "28/06/2026 à 08:45", "Annulée", [line("p12", 4), line("p6", 3)], {
+    note: "Commande annulée.",
   }),
   order("#ADL-560", "06/06/2026 à 18:11", "Livrée", [line("p8", 4), line("p7", 4)]),
   order("#ADL-174", "30/05/2026 à 18:21", "Annulée", [line("p4", 10)]),
@@ -97,8 +100,8 @@ export const INITIAL_NOTIFICATIONS = [
   {
     id: "n2",
     type: "order",
-    title: "Commande #ADL-3955 confirmée",
-    message: "Notre équipe prépare votre commande. Livraison estimée demain.",
+    title: "Commande #ADL-3955 reçue",
+    message: "Votre commande est en attente de confirmation. Livraison estimée demain.",
     time: "Il y a 18 minutes",
     read: false,
   },
@@ -113,8 +116,8 @@ export const INITIAL_NOTIFICATIONS = [
   {
     id: "n4",
     type: "truck",
-    title: "Commande #ADL-2061 expédiée",
-    message: "Votre commande est en cours de livraison vers votre officine.",
+    title: "Commande #ADL-2061 livrée",
+    message: "Votre commande a été livrée dans votre officine.",
     time: "09/07/2026 à 21:15",
     read: true,
   },

@@ -1,11 +1,8 @@
 const STATUS_CLASS = {
-  Nouvelle: "status-orange",
-  "En préparation": "status-orange",
+  "En attente": "status-orange",
   Confirmée: "status-blue",
-  Expédiée: "status-blue",
   Livrée: "status-green",
   Annulée: "status-red",
-  Fusionnée: "status-gray",
 };
 
 export function OrderStatusBadge({ status, className = "" }) {
