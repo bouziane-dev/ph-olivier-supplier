@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pill, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import { formatDA } from "@/lib/format";
 import { STOCK_CLASS } from "@/lib/data";
 
@@ -47,27 +47,27 @@ function ProductRow({ product, onAdd }) {
         </span>
       </td>
       <td data-label="Quantité" style={{ textAlign: "right" }}>
-        <div className="qty-control" style={{ margin: "0 0 0 auto" }}>
-          <button onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={out}>
-            <Minus size={13} />
-          </button>
-          <span>{qty}</span>
-          <button onClick={() => setQty((q) => q + 1)} disabled={out}>
-            <Plus size={13} />
+        <div className="product-add-row" style={{ justifyContent: "flex-end" }}>
+          <div className="qty-control">
+            <button onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={out}>
+              <Minus size={13} />
+            </button>
+            <span>{qty}</span>
+            <button onClick={() => setQty((q) => q + 1)} disabled={out}>
+              <Plus size={13} />
+            </button>
+          </div>
+          <button
+            className="add-button"
+            onClick={() => { onAdd(product, qty); setQty(1); }}
+            disabled={out}
+          >
+            <Plus size={14} />
+            Ajouter
           </button>
         </div>
       </td>
-      <td data-label="Action" style={{ textAlign: "right" }}>
-        <button
-          className="button button-secondary"
-          onClick={() => { onAdd(product, qty); setQty(1); }}
-          disabled={out}
-          style={{ display: "inline-flex" }}
-        >
-          <Pill size={13} />
-          Ajouter
-        </button>
-      </td>
+      <td data-label="Action" style={{ textAlign: "right" }} />
     </tr>
   );
 }

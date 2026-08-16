@@ -40,33 +40,36 @@ export default function ProductCard({ product, onAdd, index = 0, loading }) {
       <p className="product-sub">{product.detail}</p>
       <div className="product-footer">
         <span className="price">{formatDA(product.price)}</span>
-        <div className="qty-control" style={{ marginBottom: 0 }}>
+        <div className="product-add-row">
+          <div className="qty-control">
+            <button
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              disabled={out}
+              aria-label="Diminuer la quantité"
+            >
+              <Minus size={13} />
+            </button>
+            <span>{qty}</span>
+            <button
+              onClick={() => setQty((q) => q + 1)}
+              disabled={out}
+              aria-label="Augmenter la quantité"
+            >
+              <Plus size={13} />
+            </button>
+          </div>
           <button
-            onClick={() => setQty((q) => Math.max(1, q - 1))}
+            className="add-button"
+            onClick={() => { onAdd(product, qty); setQty(1); }}
             disabled={out}
-            aria-label="Diminuer la quantité"
+            data-testid={`button-add-${product.id}`}
+            aria-label={`Ajouter ${product.name}`}
+            title={out ? "Épuisé" : "Ajouter au panier"}
           >
-            <Minus size={13} />
-          </button>
-          <span>{qty}</span>
-          <button
-            onClick={() => setQty((q) => q + 1)}
-            disabled={out}
-            aria-label="Augmenter la quantité"
-          >
-            <Plus size={13} />
+            <Plus size={16} />
+            Ajouter
           </button>
         </div>
-        <button
-          className="add-button"
-          onClick={() => { onAdd(product, qty); setQty(1); }}
-          disabled={out}
-          data-testid={`button-add-${product.id}`}
-          aria-label={`Ajouter ${product.name}`}
-          title={out ? "Épuisé" : "Ajouter au panier"}
-        >
-          <Plus size={18} />
-        </button>
       </div>
     </article>
   );
